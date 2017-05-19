@@ -1,6 +1,6 @@
 # docker-kubectl
 
-Kubectl, in a container!
+[![CircleCI](https://circleci.com/gh/giantswarm/docker-kubectl.svg?style=shield)](https://circleci.com/gh/giantswarm/docker-kubectl)
+[![Docker Repository on Quay](https://quay.io/repository/giantswarm/kubectl/status "Docker Repository on Quay")](https://quay.io/repository/giantswarm/kubectl)
 
-Available at `giantswarm/kubectl:1.5.2` (see: https://hub.docker.com/r/giantswarm/kubectl/)
-Note: builds are currently manual.
+Kubectl, in a container!
