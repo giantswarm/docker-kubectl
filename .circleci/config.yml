@@ -18,7 +18,8 @@ jobs:
     - run: ./architect build
 
 workflows:
-  build_e2e:
+  version: 2
+  build:
     jobs:
       - build:
           # Needed to trigger job also on git tag.
