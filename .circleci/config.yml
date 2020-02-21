@@ -1,17 +1,55 @@
-version: 2
+version: 2.1
+orbs:
+  architect: giantswarm/architect@0.4.5
+
 jobs:
   build:
     machine: true
     steps:
     - checkout
 
-    - run: |
-        wget -q $(curl -sS -H "Authorization: token $RELEASE_TOKEN" https://api.github.com/repos/giantswarm/architect/releases/latest | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
-        chmod +x ./architect
-        ./architect version
-    - run: ./architect build
-    - deploy:
+    - run:
+        name: Get architect binary
         command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            ./architect deploy
-          fi
+          wget -q $(curl -sS -H "Authorization: token $RELEASE_TOKEN" https://api.github.com/repos/giantswarm/architect/releases/latest | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
+          chmod +x ./architect
+          ./architect version
+
+    - run: ./architect build
+
+workflows:
+  build_e2e:
+    jobs:
+      - build:
+          # Needed to trigger job also on git tag.
+          filters:
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-docker:
+          name: push-docker-kubectl-to-quay
+          image: "quay.io/giantswarm/docker-kubectl"
+          username_envar: "QUAY_USERNAME"
+          password_envar: "QUAY_PASSWORD"
+          requires:
+            - build
+          # Needed to trigger job also on git tag.
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-docker:
+          name: push-docker-kubectl-to-aliyun
+          image: "registry-intl.cn-shanghai.aliyuncs.com/giantswarm/docker-kubectl"
+          username_envar: "ALIYUN_USERNAME"
+          password_envar: "ALIYUN_PASSWORD"
+          requires:
+            - build
+          # Needed to trigger job only on git tag.
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*/
