@@ -6,49 +6,22 @@ orbs:
 workflows:
   build:
     jobs:
-      - architect/go-build:
-          name: go-build
-          binary: docker-kubectl
-          filters:
-            tags:
-              only: /^v.*/
-
       - architect/push-to-docker:
           context: architect
           name: push-to-quay
           image: "quay.io/giantswarm/docker-kubectl"
           username_envar: "QUAY_USERNAME"
           password_envar: "QUAY_PASSWORD"
-          requires:
-            - go-build
           filters:
             tags:
               only: /^v.*/
 
       - architect/push-to-docker:
           context: architect
-          name: push-to-aliyun-master
+          name: push-to-aliyun
           image: "registry-intl.cn-shanghai.aliyuncs.com/giantswarm/docker-kubectl"
           username_envar: "ALIYUN_USERNAME"
           password_envar: "ALIYUN_PASSWORD"
-          requires:
-            - go-build
           filters:
-            branches:
-              only: master
-            tags:
-              only: /^v.*/
-
-      - architect/push-to-docker:
-          context: architect
-          name: push-to-aliyun-pr
-          image: "registry-intl.cn-shanghai.aliyuncs.com/giantswarm/docker-kubectl"
-          username_envar: "ALIYUN_USERNAME"
-          password_envar: "ALIYUN_PASSWORD"
-          requires:
-            - go-build
-          filters:
-            branches:
-              ignore: master
             tags:
               ignore: /^v.*/
