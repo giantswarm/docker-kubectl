@@ -7,6 +7,5 @@ RUN apk add --no-cache ca-certificates \
     && chmod +x /usr/local/bin/kubectl
 
 RUN adduser -h "/home/giantswarm" -s /bin/sh -u 1000 -D giantswarm giantswarm
-USER giantswarm
 
 ENTRYPOINT ["kubectl"]
