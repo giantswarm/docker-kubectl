@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update `kubectl` to version `1.20.5`. ([#28](https://github.com/giantswarm/docker-kubectl/pull/28))
+
 ## [1.18.8] - 2020-08-18
 
 ### Changed
