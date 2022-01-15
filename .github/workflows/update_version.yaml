@@ -1,0 +1,81 @@
+on:
+  schedule:
+    - cron: "0 9 */7 * *"
+jobs:
+  debug_info:
+    name: Debug info
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Print github context JSON
+        run: |
+          cat <<EOF
+          ${{ toJson(github) }}
+          EOF
+  gather_facts:
+    name: Gather facts
+    runs-on: ubuntu-20.04
+    outputs:
+      base: ${{ steps.gather_facts.outputs.base }}
+      new_version: ${{ steps.gather_facts.outputs.new_version }}
+      branch: ${{ steps.gather_facts.outputs.branch }}
+      skip: ${{ steps.pr_exists.outputs.skip }}
+    steps:
+      - name: Gather facts
+        id: gather_facts
+        run: |
+          head="${{ github.event.ref }}"
+          head="${head#refs/heads/}" # Strip "refs/heads/" prefix.
+          base="$(echo $head | cut -d '#' -f 1)"
+          base="${base#refs/heads/}" # Strip "refs/heads/" prefix.
+          echo "base=\"$base\" head=\"$head\""
+          echo "::set-output name=base::${base}"
+          echo "::set-output name=head::${head}"
+          new_version="$(curl -L -s https://dl.k8s.io/release/stable.txt)"
+          echo "::set-output name=new_version::${new_version}"
+          echo "::set-output name=branch::master#release#${new_version}"
+      - name: Check if PR exists
+        id: pr_exists
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          if gh pr view --repo ${{ github.repository }} "${{ steps.gather_facts.outputs.branch }}" | grep -i 'state:[[:space:]]*open' >/dev/null; then
+            gh pr view --repo ${{ github.repository }} "${{ steps.gather_facts.outputs.branch }}"
+            echo "::set-output name=skip::true"
+          else
+            echo "::set-output name=skip::false"
+          fi
+  update_kubectl_version:
+    name: Update Kubectl version
+    runs-on: ubuntu-20.04
+    needs:
+      - gather_facts
+    if: ${{ needs.gather_facts.outputs.skip != 'true' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Update Dockerfile
+        id: update_dockerfile
+        run: |
+          git checkout -b ${{ needs.gather_facts.outputs.branch }}
+          file="Dockerfile"
+          version="$(sed -n 's/^ARG VERSION=\(.*\)$/\1/p' $file)"
+          new_version="${{ needs.gather_facts.outputs.new_version }}"
+          echo "version=\"$version\" new_version=\"$new_version\""
+          echo "::set-output name=new_version::${new_version}"
+          sed -Ei "s/^\(ARG VERSION=\).*$/\1${new_version}/" $file
+          if git diff --exit-code $file ; then
+            echo "error: no changes in \"$file\"" >&2
+            exit 1
+          fi
+      - name: Commit changes
+        run: |
+          file="Dockerfile"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add $file
+          git commit -m "Bump kubectl version to ${{ needs.gather_facts.outputs.new_version }}"
+      - name: Push changes
+        env:
+          REMOTE_REPO: "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+        run: |
+          git push "${REMOTE_REPO}" HEAD:${{ needs.gather_facts.outputs.branch }}
