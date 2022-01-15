@@ -64,7 +64,7 @@ jobs:
           new_version="${{ needs.gather_facts.outputs.new_version }}"
           echo "version=\"$version\" new_version=\"$new_version\""
           echo "::set-output name=new_version::${new_version}"
-          sed -Ei "s/^\(ARG VERSION=\).*$/\1${new_version}/" $file
+          sed -Ei "s/^(ARG VERSION=).*$/\1${new_version}/" $file
           if git diff --exit-code $file ; then
             echo "error: no changes in \"$file\"" >&2
             exit 1
