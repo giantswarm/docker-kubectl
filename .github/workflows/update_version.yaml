@@ -1,6 +1,8 @@
+name: Update Kubectl
 on:
   schedule:
     - cron: "0 9 */7 * *"
+  workflow_dispatch:
 jobs:
   debug_info:
     name: Debug info
