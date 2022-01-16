@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.23.1] - 2022-01-16
+
 ### Changed
 
 - Update `kubectl` to version `1.20.5`. ([#28](https://github.com/giantswarm/docker-kubectl/pull/28))
@@ -28,6 +30,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add `kubectl` version `1.18.2` .
 
-[Unreleased]: https://github.com/giantswarm/docker-kubectl/compare/v1.18.8...HEAD
+[Unreleased]: https://github.com/giantswarm/docker-kubectl/compare/v1.23.1...HEAD
+[1.23.1]: https://github.com/giantswarm/docker-kubectl/compare/v1.18.8...v1.23.1
 [1.18.8]: https://github.com/giantswarm/docker-kubectl/compare/v1.18.2...v1.18.8
 [1.18.2]: https://github.com/giantswarm/docker-kubectl/compare/v1.16.4...v1.18.2
