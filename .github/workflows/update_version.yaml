@@ -81,3 +81,9 @@ jobs:
           REMOTE_REPO: "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
         run: |
           git push "${REMOTE_REPO}" HEAD:${{ needs.gather_facts.outputs.branch }}
+  trigger_release:
+      needs:
+      - gather_facts
+      uses: GiantSwarm/docker-kubectl/.github/workflows/zz_generated.create_release_pr.yaml@master
+      with:
+        branch: "refs/heads/${{ needs.gather_facts.outputs.branch }}"
