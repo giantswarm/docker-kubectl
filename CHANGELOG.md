@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Updated GitHub workflows to have new release PR generated automatically when new version available.
+
 ## [1.23.1] - 2022-01-16
 
 ### Changed
