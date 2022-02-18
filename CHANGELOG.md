@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Only attempt to create release if new version available
+
 ## [1.23.3] - 2022-01-29
 
 ## [1.23.2] - 2022-01-24

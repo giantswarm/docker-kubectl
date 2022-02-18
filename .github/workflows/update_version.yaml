@@ -13,6 +13,7 @@ jobs:
           cat <<EOF
           ${{ toJson(github) }}
           EOF
+
   gather_facts:
     name: Gather facts
     runs-on: ubuntu-20.04
@@ -46,12 +47,15 @@ jobs:
           else
             echo "::set-output name=skip::false"
           fi
+
   update_kubectl_version:
     name: Update Kubectl version
     runs-on: ubuntu-20.04
     needs:
       - gather_facts
     if: ${{ needs.gather_facts.outputs.skip != 'true' }}
+    outputs:
+      skip: ${{ steps.update_dockerfile.outputs.skip }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -66,10 +70,11 @@ jobs:
           echo "::set-output name=new_version::${new_version}"
           sed -Ei "s/^(ARG VERSION=).*$/\1${new_version}/" $file
           if git diff --exit-code $file ; then
-            echo "error: no changes in \"$file\"" >&2
-            exit 1
+            echo "No new version available" >&2
+            echo "::set-output name=skip::true"
           fi
       - name: Commit changes
+        if: ${{ steps.update_dockerfile.outputs.skip != 'true' }}
         run: |
           file="Dockerfile"
           git config --local user.email "action@github.com"
@@ -77,13 +82,17 @@ jobs:
           git add $file
           git commit -m "Bump kubectl version to ${{ needs.gather_facts.outputs.new_version }}"
       - name: Push changes
+        if: ${{ steps.update_dockerfile.outputs.skip != 'true' }}
         env:
           REMOTE_REPO: "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
         run: |
           git push "${REMOTE_REPO}" HEAD:${{ needs.gather_facts.outputs.branch }}
+
   trigger_release:
       needs:
       - gather_facts
+      - update_kubectl_version
       uses: GiantSwarm/docker-kubectl/.github/workflows/zz_generated.create_release_pr.yaml@master
+      if: ${{ needs.gather_facts.outputs.skip != 'true' && needs.update_kubectl_version.outputs.skip != 'true' }}
       with:
         branch: "refs/heads/${{ needs.gather_facts.outputs.branch }}"
