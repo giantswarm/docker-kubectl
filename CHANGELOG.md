@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.23.4] - 2022-02-22
+
 ### Fixed
 
 - Only attempt to create release if new version available
@@ -42,7 +44,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add `kubectl` version `1.18.2` .
 
-[Unreleased]: https://github.com/giantswarm/docker-kubectl/compare/v1.23.3...HEAD
+[Unreleased]: https://github.com/giantswarm/giantswarm/compare/v1.23.4...HEAD
+[1.23.4]: https://github.com/giantswarm/giantswarm/compare/v1.23.3...v1.23.4
 [1.23.3]: https://github.com/giantswarm/docker-kubectl/compare/v1.23.2...v1.23.3
 [1.23.2]: https://github.com/giantswarm/docker-kubectl/compare/v1.23.1...v1.23.2
 [1.23.1]: https://github.com/giantswarm/docker-kubectl/compare/v1.18.8...v1.23.1
