@@ -76,7 +76,7 @@ jobs:
       - name: Update Changelog
         id: update_changelog
         run: |
-          sed -i "s/## \[Unreleased\]/## [Unreleased]\n\n### Changed\n\n- Updated kubectl to ${{ needs.gather_facts.outputs.new_version }}" CHANGELOG.md
+          sed -i "s/## \[Unreleased\]/## [Unreleased]\n\n### Changed\n\n- Updated kubectl to ${{ needs.gather_facts.outputs.new_version }}/" CHANGELOG.md
       - name: Commit changes
         if: ${{ steps.update_dockerfile.outputs.skip != 'true' }}
         run: |
