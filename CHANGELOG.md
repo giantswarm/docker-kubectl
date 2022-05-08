@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Updated kubectl to v1.24.0
+
 ## [1.23.6] - 2022-04-22
 
 ### Changed
