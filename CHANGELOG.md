@@ -7,7 +7,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-## [1.24.1] - 2022-05-29
+## [1.24.1] - 2022-06-16
+
+This is a re-release of tag 1.24.1 from 2022-05-29 to include jq
 
 ### Changed
 
