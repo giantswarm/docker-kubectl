@@ -12,6 +12,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Updated kubectl to v1.24.1
+- Install jq
+- Update base container image to quay.io/giantswarm/alpine:3.16
 
 ## [1.24.0] - 2022-05-08
 
