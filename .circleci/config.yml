@@ -24,4 +24,4 @@ workflows:
           password_envar: "ALIYUN_PASSWORD"
           filters:
             tags:
-              ignore: /^v.*/
+              only: /^v.*/
