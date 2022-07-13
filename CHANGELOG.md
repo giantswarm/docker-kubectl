@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Push to aliyun on every tag.
+
 ## [1.24.2] - 2022-06-22
 
 ### Changed
