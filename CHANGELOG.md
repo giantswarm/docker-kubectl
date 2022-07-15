@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Updated kubectl to v1.24.3
+
+### Changed
+
 - Push to aliyun on every tag.
 
 ## [1.24.2] - 2022-06-22
