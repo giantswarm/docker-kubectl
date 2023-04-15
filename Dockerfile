@@ -1,6 +1,6 @@
 FROM quay.io/giantswarm/alpine:3.16
 
-ARG VERSION=v1.26.3
+ARG VERSION=v1.27.1
 RUN apk add --no-cache ca-certificates curl jq \
     && curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
