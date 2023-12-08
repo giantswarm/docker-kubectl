@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "github>giantswarm/renovate-presets:default.json5"
+  ],
+  "branchName": "master#release#{{{newVersion}}}",
+  "prCreation": "approval",
+}
