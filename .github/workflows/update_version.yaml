@@ -88,7 +88,6 @@ jobs:
       - name: Push changes
         if: ${{ steps.update_dockerfile.outputs.skip != 'true' }}
         env:
-          GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
-          REMOTE_REPO: "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          REMOTE_REPO: "https://${{ secrets.TAYLORBOT_GITHUB_ACTION }}:${{ secrets.TAYLORBOT_GITHUB_ACTION }}@github.com/${{ github.repository }}.git"
         run: |
           git push "${REMOTE_REPO}" HEAD:${{ needs.gather_facts.outputs.branch }}
