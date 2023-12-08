@@ -88,6 +88,17 @@ jobs:
       - name: Push changes
         if: ${{ steps.update_dockerfile.outputs.skip != 'true' }}
         env:
-          REMOTE_REPO: "https://${{ secrets.TAYLORBOT_GITHUB_ACTION }}:${{ secrets.TAYLORBOT_GITHUB_ACTION }}@github.com/${{ github.repository }}.git"
+          REMOTE_REPO: "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
         run: |
           git push "${REMOTE_REPO}" HEAD:${{ needs.gather_facts.outputs.branch }}
+
+  trigger_release:
+      needs:
+      - gather_facts
+      - update_kubectl_version
+      uses: GiantSwarm/docker-kubectl/.github/workflows/zz_generated.create_release_pr.yaml@master
+      if: ${{ needs.gather_facts.outputs.skip != 'true' && needs.update_kubectl_version.outputs.skip != 'true' }}
+      with:
+        branch: "refs/heads/${{ needs.gather_facts.outputs.branch }}"
+      secrets:
+        TAYLORBOT_GITHUB_ACTION: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
