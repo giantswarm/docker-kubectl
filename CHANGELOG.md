@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.29.3] - 2024-03-22
+
+### Changed
+
+- Updated kubectl to v1.29.3
+
 ## [1.29.2] - 2024-02-15
 
 ### Changed
@@ -212,7 +218,8 @@ This is a re-release of tag 1.24.1 from 2022-05-29 to include jq
 
 - Add `kubectl` version `1.18.2` .
 
-[Unreleased]: https://github.com/giantswarm/docker-kubectl/compare/v1.29.2...HEAD
+[Unreleased]: https://github.com/giantswarm/docker-kubectl/compare/v1.29.3...HEAD
+[1.29.3]: https://github.com/giantswarm/docker-kubectl/compare/v1.29.2...v1.29.3
 [1.29.2]: https://github.com/giantswarm/docker-kubectl/compare/v1.29.1...v1.29.2
 [1.29.1]: https://github.com/giantswarm/docker-kubectl/compare/v1.29.0...v1.29.1
 [1.29.0]: https://github.com/giantswarm/docker-kubectl/compare/v1.28.4...v1.29.0
