@@ -1,4 +1,4 @@
-FROM quay.io/giantswarm/alpine:3.20
+FROM quay.io/giantswarm/alpine:3.20.3
 
 ARG VERSION=v1.31.1
 RUN apk add --no-cache ca-certificates curl jq \
