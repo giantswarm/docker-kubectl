@@ -1,4 +1,4 @@
-FROM gsoci.azurecr.io/giantswarm/alpine:3.20.3
+FROM gsoci.azurecr.io/giantswarm/alpine:3.22.1
 
 ARG VERSION=v1.33.4
 RUN apk add --no-cache ca-certificates curl jq \
