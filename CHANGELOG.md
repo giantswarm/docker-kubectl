@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Improved detection logic to check if the branch name already exists.
+- Migrated from deprecated `set-output` calls.
+- Updated `checkout` action to v4.
+- Updated kubectl to v1.34.4
+
 ## [1.33.4] - 2025-08-15
 
 ### Changed
