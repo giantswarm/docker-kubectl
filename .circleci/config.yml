@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  architect: giantswarm/architect@6.12.0
+  architect: giantswarm/architect@8.0.2
 
 workflows:
   build:
@@ -9,6 +9,7 @@ workflows:
       - architect/push-to-registries:
           context: architect
           name: push-to-registries
+          multiarch: true
           filters:
             tags:
               only: /^v.*/
