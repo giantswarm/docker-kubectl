@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Build and publish a multi-arch (linux/amd64 + linux/arm64) container image. The `v1.36.0` registry tag was rebuilt in-place to include both architectures (kubectl version unchanged), so existing consumers pinning `1.36.0` automatically get arm64 support on next pull. The convention of `docker-kubectl vX.Y.Z` bundling kubectl `vX.Y.Z` is preserved; no new release tag was cut for this image-only change.
+- Build and publish a multi-arch (linux/amd64 + linux/arm64) container image.
 
 ## [1.36.0] - 2026-04-29
 
