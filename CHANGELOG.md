@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Build and publish a multi-arch (linux/amd64 + linux/arm64) container image. Required so init containers and jobs that pull this image can run on Graviton/arm64 nodes without `exec format error`. The `kubectl` binary is now downloaded from `linux/${TARGETARCH}/kubectl` based on the build platform.
+
 ## [1.36.0] - 2026-04-29
 
 ### Changed
