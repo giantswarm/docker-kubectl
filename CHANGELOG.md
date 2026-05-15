@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Updated kubectl to v1.36.1
+
+### Changed
+
 - Build and publish a multi-arch (linux/amd64 + linux/arm64) container image.
 
 ## [1.36.0] - 2026-04-29

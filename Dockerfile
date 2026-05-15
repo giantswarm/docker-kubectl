@@ -1,6 +1,6 @@
 FROM --platform=$BUILDPLATFORM gsoci.azurecr.io/giantswarm/alpine:3.22.1 AS prep
 USER root
-ARG VERSION=v1.36.0
+ARG VERSION=v1.36.1
 ARG TARGETARCH
 RUN apk add --no-cache ca-certificates curl jq \
     && curl --silent --show-error --fail --location https://dl.k8s.io/release/${VERSION}/bin/linux/${TARGETARCH}/kubectl --output /kubectl \
