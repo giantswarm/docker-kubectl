@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM gsoci.azurecr.io/giantswarm/alpine:3.22.1 AS prep
+FROM --platform=$BUILDPLATFORM gsoci.azurecr.io/giantswarm/alpine:3.24.2 AS prep
 USER root
 ARG VERSION=v1.37.0
 ARG TARGETARCH
@@ -7,7 +7,7 @@ RUN apk add --no-cache ca-certificates curl jq \
     && chmod +x /kubectl \
     && adduser -h "/home/giantswarm" -s /bin/sh -u 1000 -D giantswarm giantswarm
 
-FROM gsoci.azurecr.io/giantswarm/alpine:3.22.1
+FROM gsoci.azurecr.io/giantswarm/alpine:3.24.2
 
 COPY --from=prep /kubectl /usr/local/bin/kubectl
 COPY --from=prep /etc/ssl/certs /etc/ssl/certs
