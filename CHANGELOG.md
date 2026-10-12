@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Image: Improve Dockerfile, fix `jq`.
+
 ## [1.37.1] - 2026-09-29
 
 ### Changed

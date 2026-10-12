@@ -7,12 +7,12 @@ workflows:
   build:
     jobs:
       - architect/push-to-registries:
-          context: architect
           name: push-to-registries
+          context: architect
           filters:
-            tags:
-              only: /^v.*/
             branches:
               ignore:
                 - main
                 - master
+            tags:
+              only: /^v.*/

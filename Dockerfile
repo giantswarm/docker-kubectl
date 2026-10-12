@@ -1,21 +1,16 @@
-FROM --platform=$BUILDPLATFORM gsoci.azurecr.io/giantswarm/alpine:3.24.2 AS prep
-USER root
-ARG VERSION=v1.37.1
-ARG TARGETARCH
-RUN apk add --no-cache ca-certificates curl jq \
-    && curl --silent --show-error --fail --location https://dl.k8s.io/release/${VERSION}/bin/linux/${TARGETARCH}/kubectl --output /kubectl \
-    && chmod +x /kubectl \
-    && adduser -h "/home/giantswarm" -s /bin/sh -u 1000 -D giantswarm giantswarm
-
+# Start from Alpine.
 FROM gsoci.azurecr.io/giantswarm/alpine:3.24.2
 
-COPY --from=prep /kubectl /usr/local/bin/kubectl
-COPY --from=prep /etc/ssl/certs /etc/ssl/certs
-COPY --from=prep /usr/share/ca-certificates /usr/share/ca-certificates
-COPY --from=prep /usr/bin/jq /usr/bin/jq
-COPY --from=prep /etc/passwd /etc/passwd
-COPY --from=prep /etc/group /etc/group
-COPY --from=prep /etc/shadow /etc/shadow
-COPY --from=prep --chown=1000:1000 /home/giantswarm /home/giantswarm
+# Define target OS & architecture.
+ARG TARGETOS
+ARG TARGETARCH
 
-ENTRYPOINT ["kubectl"]
+# Add Giant Swarm user and install CA certificates & jq.
+RUN adduser -u 1000 -D giantswarm && apk add --no-cache ca-certificates jq
+
+# Install kubectl.
+ARG VERSION=v1.37.1
+ADD --chmod=755 https://dl.k8s.io/release/${VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl /usr/local/bin/kubectl
+
+# Run kubectl.
+ENTRYPOINT [ "kubectl" ]
