@@ -102,7 +102,7 @@ jobs:
       needs:
       - gather_facts
       - update_kubectl_version
-      uses: GiantSwarm/docker-kubectl/.github/workflows/zz_generated.create_release_pr.yaml@0a964d8e2bc60830cfc2ebe39b9b42a69b750b19 # master
+      uses: GiantSwarm/docker-kubectl/.github/workflows/zz_generated.create_release_pr.yaml@73aa5702196dd65e47000197710252b721c73689 # v1.37.1
       if: ${{ needs.gather_facts.outputs.skip != 'true' && needs.update_kubectl_version.outputs.skip != 'true' }}
       with:
         branch: "refs/heads/${{ needs.gather_facts.outputs.branch }}"
