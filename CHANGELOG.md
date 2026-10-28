@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Image: Update kubectl to v1.37.2.
+
+### Changed
+
 - Image: Improve Dockerfile, fix `jq`.
 
 ## [1.37.1] - 2026-09-29
