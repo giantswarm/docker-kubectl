@@ -1,5 +1,5 @@
 # Start from Alpine.
-FROM gsoci.azurecr.io/giantswarm/alpine:3.24.3
+FROM gsoci.azurecr.io/giantswarm/alpine:3.24.4
 
 # Define target OS & architecture.
 ARG TARGETOS
