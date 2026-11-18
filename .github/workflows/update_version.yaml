@@ -9,10 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print github context JSON
-        run: |
-          cat <<EOF
-          ${{ toJson(github) }}
-          EOF
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
   gather_facts:
     name: Gather facts

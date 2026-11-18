@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- The Update Kubectl workflow prints the `github` context through an environment variable so the shell cannot evaluate its contents.
+
 ## [1.37.2] - 2026-10-28
 
 ### Changed
